@@ -9,10 +9,8 @@ const ratelimit = new Ratelimit({
 
 export async function POST(request) {
   const ip = request.headers.get("x-forwarded-for") ?? "";
-  console.log(ip);
-  console.log(ip);
-  console.log(ip);
-  console.log(ip);
+  console.log({"ip:": ip});
+
 
   const { success, reset } = await ratelimit.limit(ip);
 

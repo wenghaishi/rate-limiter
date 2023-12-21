@@ -13,25 +13,36 @@ const Home = () => {
 
   const handlePostRequest = async () => {
     console.log("clicked");
-    axios
-      .post("/api/otp", {
+
+    try {
+      const response = await axios.post("/api/otp", {
         input: userInput,
-      })
-      .then(function (response) {
-        console.log(response);
       });
+      console.log(response);
+      console.log(response.data);
+
+      setResult(response.data);
+    } catch (error) {
+      setResult(error.message);
+    }
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-center gap-20 p-24">
       <input
         type="text"
         value={userInput}
         onChange={handleInputChange}
-        placeholder="Enter text"
+        placeholder="Enter OTP"
+        className="p-4 rounded-lg focus:outline-none"
       />
-      <button onClick={handlePostRequest}>Make POST Request</button>
-      <p>Result: {result}</p>
+      <button
+        className="bg-green-300 p-6 rounded-lg"
+        onClick={handlePostRequest}
+      >
+        Make POST Request
+      </button>
+      <p className="text-2xl">Result: {result}</p>
     </main>
   );
 };
